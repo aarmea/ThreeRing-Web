@@ -69,7 +69,7 @@ class ThreeRing
 			y: 0,
 			width: @stage.getWidth(),
 			height: @stage.getHeight()
-		@savedPoints = new QuadTree quadInterface
+		@savedPoints = new Quadtree quadInterface
 		@savedLines = []
 		points = []
 		newLine = null
@@ -108,7 +108,8 @@ class ThreeRing
 			else if event instanceof TouchEvent
 				points.push @stage.getTouchPosition()
 			@savedLines[@savedLines.length - 1].setPoints points
-			@drawLayer.drawScene()
+			#@drawLayer.drawScene()
+			@savedLines[@savedLines.length - 1].drawScene()
 			return
 
 		@background.on 'mouseup touchend', () =>
@@ -116,7 +117,7 @@ class ThreeRing
 			@drawMoving = false
 			lineIndex = @savedLines.length - 1
 			for point in points
-				@savedPoints.insert { x: point.x, y: point.y}
+				@savedPoints.insert { x: point.x, y: point.y, width: 1, height: 1 }
 
 			console.log(@savedPoints)
 			return

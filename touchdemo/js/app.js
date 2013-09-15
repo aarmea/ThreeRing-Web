@@ -68,7 +68,7 @@ ThreeRing = (function() {
       width: this.stage.getWidth(),
       height: this.stage.getHeight()
     };
-    this.savedPoints = new QuadTree(quadInterface);
+    this.savedPoints = new Quadtree(quadInterface);
     this.savedLines = [];
     points = [];
     newLine = null;
@@ -112,7 +112,7 @@ ThreeRing = (function() {
         points.push(_this.stage.getTouchPosition());
       }
       _this.savedLines[_this.savedLines.length - 1].setPoints(points);
-      _this.drawLayer.drawScene();
+      _this.savedLines[_this.savedLines.length - 1].drawScene();
     });
     return this.background.on('mouseup touchend', function() {
       var lineIndex, point, _i, _len;
@@ -123,7 +123,9 @@ ThreeRing = (function() {
         point = points[_i];
         _this.savedPoints.insert({
           x: point.x,
-          y: point.y
+          y: point.y,
+          width: 1,
+          height: 1
         });
       }
       console.log(_this.savedPoints);
